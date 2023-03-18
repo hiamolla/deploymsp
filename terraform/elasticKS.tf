@@ -1,5 +1,5 @@
-resource "aws_iam_role" "eks-cluster" {
-  name = "eks-cluster-${var.cluster_name}"
+resource "aws_iam_role" "cluster" {
+  name = "cluster-${var.cluster_name}"
 
   assume_role_policy = <<POLICY
 {
@@ -17,15 +17,15 @@ resource "aws_iam_role" "eks-cluster" {
 POLICY
 }
 
-resource "aws_iam_role_policy_attachment" "amazon-eks-cluster-policy" {
+resource "aws_iam_role_policy_attachment" "amazon-cluster-policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-  role       = aws_iam_role.eks-cluster.name
+  role       = aws_iam_role.cluster.name
 }
 
 resource "aws_eks_cluster" "cluster" {
   name     = var.cluster_name
   version  = var.cluster_version
-  role_arn = aws_iam_role.eks-cluster.arn
+  role_arn = aws_iam_role.cluster.arn
 
   vpc_config {
     subnet_ids = [
@@ -36,5 +36,5 @@ resource "aws_eks_cluster" "cluster" {
     ]
   }
 
-  depends_on = [aws_iam_role_policy_attachment.amazon-eks-cluster-policy]
+  depends_on = [aws_iam_role_policy_attachment.amazon-cluster-policy]
 }

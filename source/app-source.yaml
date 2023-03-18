@@ -2,10 +2,10 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: GitRepository
 metadata:
-  name: my-app-source
+  name: app-source
   namespace: flux-system
 spec:
   interval: 1m0s
   ref:
     branch: main
-  url: https://github.com/iamolla/altschool-cloud-examination-kubernetes-project.git
+  url: https://github.com/iamolla/altschool-cloudengineering-thirdsemester-examproject.git
